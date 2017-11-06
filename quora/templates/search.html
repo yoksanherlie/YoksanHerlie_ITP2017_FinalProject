@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="col-xs-12 col-sm-10 col-md-10" id="content">
+        {% if search_questions|length == 0 %}
+            <h2>We can't find your query in our database</h2>
+        {% else %}
+            {% for question in search_questions %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xs-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <p class="panel-info">
+                                    <strong>Question</strong>
+                                </p>
+                                <h2 class="panel-title">
+                                    <a href="{% url 'detail' question.id %}">
+                                        {{ question.title }}
+                                    </a>
+                                </h2>
+                                <p class="panel-author">
+                                    {{ question.user.first_name|add:" "|add:question.user.last_name }} | {{ question.date }}
+                                </p>
+                            </div>
+                            <div class="panel-body">
+                                <p class="panel-text">
+                                    {{ question.question|safe }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

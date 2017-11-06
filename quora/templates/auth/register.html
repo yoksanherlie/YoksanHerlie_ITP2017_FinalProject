@@ -1,0 +1,35 @@
+{% extends 'auth/layout.html' %}
+
+{% block content %}
+    <div class="wrapper login-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h2 class="text-center section-header">QuestMe</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="panel">
+                            <div class="panel-body">
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        <label class="control-label">{{ field.label_tag }}</label>
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="panel-footer text-right">
+                                <div class="form-group-button form-group">
+                                    <button class="btn bg-orange text-white">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <br/>
+                    <p class="text-center">
+                        Already have an account? <a href="{% url 'index' %}" class="text-orange">Log in here!</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

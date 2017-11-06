@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Quest Me</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mc.css' %}">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header class="navbar navbar-fix-top" id="main-header">
+                <div class="container navbar-wrapper">
+                    <div class="nav-logo">
+                        <a href="{% url 'index' %}" id="logo">QuestMe</a>
+                        <div class="list-wrapper">
+                            <ul class="list">
+                                <li class="list-item list-heading">Feeds</li>
+                                <li class="list-item">
+                                    <a href="{% url 'home' %}" class="list-action" id="latest">Latest Questions</a>
+                                </li>
+                                <li class="list-item">
+                                    <a href="{% url 'my-question' %}" class="list-action" id="my">My Questions</a>
+                                </li>
+                            </ul>
+                            <ul class="list">
+                                <li class="list-item list-heading"><a href="#">{{ request.user.first_name }}</a></li>
+                                <li class="list-item">
+                                    <a href="{% url 'logout' %}" class="list-action" id="logout">
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-search">
+                        <form class="form-inline form-search" method="POST" action="{% url 'search' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="search" name="keyword" class="form-control" placeholder="Search questions...">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="nav-link">
+                        <ul class="nav">
+                            <li><a href="#" id="ask-question-button" class="btn bg-orange text-white">Ask Question</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+            <main class="content-wrapper" id="main-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-2 col-md-2">
+                            &nbsp;
+                        </div>
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </main>
+            <br/>
+        </div>
+
+        <div class="modal-wrapper" id="ask-question-modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-container">
+                <button class="close btn btn-link"><i class="fa fa-close"></i></button>
+                <div class="clear"></div>
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <input type="hidden" id="user_id" value="{{ request.user }}">
+                    <div class="form-group">
+                        <input type="text" name="title" placeholder="Question Title" class="form-control" id="question-title">
+                    </div>
+                    <div id="my-mc-ask-question">
+                        <div class="mc-editor-wrapper">
+                            <div class="mc-editor-nav-wrapper">
+                                <ul class="mc-editor-nav">
+                                    <li onclick="document.execCommand('bold',false,null);"><a href="javascript:;"><i class="fa fa-bold"></i> (Ctrl + B)</a></li>
+                                    <li onclick="document.execCommand('italic',false,null);"><a href="javascript:;"><i class="fa fa-italic"></i> (Ctrl + I)</a></li>
+                                </ul>
+                            </div>
+                            <div class="mc-editor-body-wrapper">
+                                <div class="mc-editor-body" id="question-body">
+                                </div>
+                            </div>
+                            <div class="mc-editor-footer-wrapper">
+                                <div class="mc-editor-footer text-right">
+                                    <button type="button" class="mc-action-button" id="ask-question">Ask Question</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'js/common.js' %}"></script>
+        <script src="{% static 'js/mc.js' %}"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

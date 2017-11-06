@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="col-xs-12 col-sm-10 col-md-10" id="content">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-xs-12">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <p class="panel-info">
+                            <strong>Question</strong>
+                        </p>
+                        <h2 class="panel-title">
+                            {{ question.title }}
+                        </h2>
+                        <p class="panel-author">
+                            {{ question.user.first_name }} | {{ question.date }}
+                        </p>
+                    </div>
+                    <div class="panel-body">
+                        <p class="panel-text">
+                            {{ question.question|safe }}
+                        </p>
+                    </div>
+                    {% if question.user != request.user %}
+                        <div class="panel-footer">
+                            <button class="btn bg-orange text-white" id="answer-question-button">
+                                Answer
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="box-answer">
+            {% if len_answer == 0 %}
+                <h4 style="margin-bottom: 10px">No answers</h4>
+            {% else %}
+                <h4 style="margin-bottom: 10px">{{ len_answer }} answers</h4>
+            {% endif %}
+
+            {% for answer in answers %}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-xs-12">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <!--<p class="panel-info">
+                                    <strong>Answer</strong>
+                                </p>-->
+                                <h2 class="panel-title">
+                                    <a href="{% url 'detail' question.id %}">
+                                        {{ answer.title }}
+                                    </a>
+                                </h2>
+                                <p class="panel-author">
+                                    <b>{{ answer.user.first_name|add:" "|add:answer.user.last_name }} | {{ answer.date }}</b>
+                                </p>
+                            </div>
+                            <div class="panel-body">
+                                <p class="panel-text">
+                                    {{ answer.answer|safe }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+	</div>
+
+    <div class="modal-wrapper" id="answer-question-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <button class="close btn btn-link"><i class="fa fa-close"></i></button>
+            <div class="clear"></div>
+            <div class="modal-body">
+                <h5 style="padding:5px 10px; background:white; margin-bottom:10px; border-radius:5px;">Answer question</h5>
+                {% csrf_token %}
+                <input type="hidden" id="question-id" value="{{ question.id }}">
+                <div id="my-mc-answer-question">
+                    <div class="mc-editor-wrapper">
+                        <div class="mc-editor-nav-wrapper">
+                            <ul class="mc-editor-nav">
+                                <li onclick="document.execCommand('bold',false,null);"><a href="javascript:;"><i class="fa fa-bold"></i> (Ctrl + B)</a></li>
+                                <li onclick="document.execCommand('italic',false,null);"><a href="javascript:;"><i class="fa fa-italic"></i> (Ctrl + I)</a></li>
+                            </ul>
+                        </div>
+                        <div class="mc-editor-body-wrapper">
+                            <div class="mc-editor-body" id="answer-body">
+                            </div>
+                        </div>
+                        <div class="mc-editor-footer-wrapper">
+                            <div class="mc-editor-footer text-right">
+                                <button type="button" class="mc-action-button" id="answer-question">Submit answer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

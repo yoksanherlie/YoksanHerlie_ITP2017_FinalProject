@@ -1,0 +1,109 @@
+.mc-editor-wrapper {
+    position: relative;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px #aaa;
+}
+.mc-editor-nav-wrapper,
+.mc-editor-body-wrapper,
+.mc-editor-footer-wrapper {
+    position: relative;
+    padding: 20px;
+}
+.mc-editor-nav-wrapper {
+    position: relative;
+    border-bottom: 1px solid #efefef;
+}
+.mc-editor-nav {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.mc-editor-nav li {
+    display: inline-block;
+}
+.mc-editor-nav li a {
+    display: inline-block;
+    padding: 8px 15px;
+    transition: none;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+.mc-editor-nav li a:hover {
+    border: 1px solid #aaa;
+}
+.mc-editor-nav li a:active {
+    background: #ddd;
+    border: 1px solid #aaa;
+}
+.mc-editor-nav li a.active {
+    background: #ddd;
+    border: 1px solid #aaa;
+}
+.mc-editor-footer-wrapper {
+    border-top: 1px solid #efefef;
+}
+.mc-action-button {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+    background: #e67207;
+    color: white;
+    transition: all .5s cubic-bezier(.19, 1, .22, 1.5);
+    font-weight: bold;
+}
+.mc-action-button:hover {
+    opacity: .7;
+}
+.mc-action-button:active {
+    transform: translateY(2px);
+}
+.mc-editor-body {
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    height: auto;
+    cursor: text;
+    font-size: 14px;
+    line-height: 1.6rem;
+}
+.mc-placeholder {
+    color: gray;
+    font-weight: normal;
+}
+.mc-inline .mc-editor-nav {
+    display: none;
+}
+.mc-inline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    background: none;
+    box-shadow: none;
+}
+.mc-inline .mc-editor-body-wrapper,
+.mc-inline .mc-editor-footer-wrapper {
+    padding: 0;
+}
+.mc-inline .mc-editor-body-wrapper {
+    flex: 0 1 80%;
+}
+.mc-inline .mc-editor-body {
+    min-height: 30px;
+    background: white;
+    box-shadow: 0 1px 1px #aaa;
+    border-radius: 4px;
+    max-height: 100px;
+    padding: 5px 10px;
+    margin-right: 20px;
+}
+.mc-inline .mc-editor-footer-wrapper {
+    flex: 1;
+}
+.mc-inline .mc-action-button {
+    display: block;
+    width: 100%;
+}
